@@ -35,4 +35,24 @@ router.post("/login", async (req, res) => {
     }
 });
 
-module.exports = router;
+const verifyAdmin = (req, res, next) => {
+    const token = req.cookies.token;
+    if (!token) {
+        return res.status(401).json({ message: "Unauthorized" });
+    } else {
+        jwt.verify(token, process.env.Admin_key, (err, decoded) => {
+            if (err) {
+                return res.status(401).json({ message: "Unauthorized" });
+            } else {
+                req.username = decoded.username;
+                req.role = decoded.role;
+                next();
+            }
+        });
+    }
+};
+
+module.exports = {
+    router,
+    verifyAdmin
+};
