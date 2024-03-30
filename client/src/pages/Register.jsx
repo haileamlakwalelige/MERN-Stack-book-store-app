@@ -22,7 +22,7 @@ const Register = () => {
 
     try {
       const response = await axios.post("http://localhost:3000/student/register", {
-        username,
+        username, 
         email,
         password,
         role,
@@ -30,6 +30,8 @@ const Register = () => {
       console.log(response);
       if (response.data && response.data.registered) {
         setSuccess("Registered successful");
+        navigate("/dashboard")
+        console.log("response", response);
 
       } else {
         setError("Failed to Register");
