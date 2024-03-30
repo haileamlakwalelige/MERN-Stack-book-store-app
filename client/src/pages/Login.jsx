@@ -42,12 +42,27 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-white flex justify-center items-center">
-      <form onSubmit={handleSubmit} className="max-w-full p-10 rounded-xl mx-auto bg-slate-800">
-        <p className="text-white text-[30px] text-center font-bold">Login Page</p>
-        {error && <p className="text-red-500 text-sm mb-3 text-center">{error}</p>}
-        {success && <p className="text-green-500 text-sm mb-3 text-center">{success}</p>}
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-full p-10 rounded-xl mx-auto bg-slate-800"
+      >
+        {error && (
+          <p className="text-red-500 text-sm mb-3 text-center">{error}</p>
+        )}
+        {success && (
+          <p className="text-green-500 text-sm mb-3 text-center">{success}</p>
+        )}
+        <p className="text-white text-[30px] text-center font-bold">
+          Login Page
+        </p>
+
         <div className="mb-5">
-          <label htmlFor="username" className="block mb-2 text-sm font-medium text-white dark:text-white">Your name</label>
+          <label
+            htmlFor="username"
+            className="block mb-2 text-sm font-medium text-white dark:text-white"
+          >
+            Your name
+          </label>
           <input
             type="text"
             id="username"
@@ -58,7 +73,12 @@ const Login = () => {
           />
         </div>
         <div className="mb-5">
-          <label htmlFor="password" className="block mb-2 text-sm font-medium text-white dark:text-white">Your password</label>
+          <label
+            htmlFor="password"
+            className="block mb-2 text-sm font-medium text-white dark:text-white"
+          >
+            Your password
+          </label>
           <input
             type="password"
             id="password"
@@ -69,7 +89,12 @@ const Login = () => {
           />
         </div>
         <div className="mb-5">
-          <label htmlFor="role" className="block mb-2 text-sm font-medium text-white dark:text-white">Your Role</label>
+          <label
+            htmlFor="role"
+            className="block mb-2 text-sm font-medium text-white dark:text-white"
+          >
+            Your Role
+          </label>
           <select
             value={role}
             onChange={(e) => setRole(e.target.value)}
@@ -81,7 +106,9 @@ const Login = () => {
         </div>
         <div className="flex justify-between items-center text-white px-4 py-3">
           <p>Don't Have an account before?</p>{" "}
-          <Link to="/register" className="text-blue-500 hover:underline">Sign Up</Link>
+          <Link to="/register" className="text-blue-500 hover:underline">
+            Sign Up
+          </Link>
         </div>
         <div className="flex justify-center items-center">
           <button
