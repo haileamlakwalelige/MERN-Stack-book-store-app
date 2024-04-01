@@ -6,24 +6,25 @@ import Navbar from "./components/layout/Navbar";
 import Dashboard from "./pages/Dashboard";
 import AddBook from "./pages/AddBook";
 import Books from "./pages/Books";
-
+import { useState } from "react";
 
 export default function App() {
+  const [roles, setRoles] = useState("");
   return (
     <div className="bg-slate-700 min-h-screen font-serif overflow-hidden">
       <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="login" element={<Login />} />
-        <Route path='books' element={<Books />} />
+        <Navbar roles={roles} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="login" element={<Login setRoles={setRoles} />} />
+          <Route path="books" element={<Books />} />
 
-        <Route path='register' element={<Register />} />
-        <Route path='dashboard' element={<Dashboard />} />
-        <Route path='add-books' element={<AddBook />} />
-      </Routes>
+          <Route path="register" element={<Register />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="add-books" element={<AddBook />} />
+        </Routes>
       </BrowserRouter>
     </div>
-  )
+  );
 }
 
