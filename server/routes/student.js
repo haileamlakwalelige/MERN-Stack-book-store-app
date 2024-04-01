@@ -4,7 +4,9 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { verifyAdmin } = require("./auth"); // Ensure this path is correct
 
+
 const studentRouter = express.Router();
+
 
 studentRouter.post("/register", verifyAdmin, async (req, res) => {
     try {
@@ -21,8 +23,7 @@ studentRouter.post("/register", verifyAdmin, async (req, res) => {
             email,
             password: hashPassword,
             role
-        });
-
+        }); 
         await newStudent.save();
         return res.json({ registered: true });
     } catch (err) {
@@ -31,4 +32,6 @@ studentRouter.post("/register", verifyAdmin, async (req, res) => {
     }
 });
 
+
 module.exports = studentRouter;
+
