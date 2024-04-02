@@ -2,7 +2,7 @@ const express = require("express");
 const Admin = require("../models/admin");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const studentRouter = require('../models/Student');
+const Student = require("../models/Student");
 
 const router = express.Router();
 
@@ -30,7 +30,7 @@ router.post("/login", async (req, res) => {
         }
     } else if (role === "student") {
         try {
-            const student = await studentRouter.findOne({ username });
+            const student = await Student.findOne({ username });
             if (!student) {
                 return res.status(401).json({ message: "Student not Registered" });
             }
@@ -69,7 +69,40 @@ const verifyAdmin = (req, res, next) => {
     }
 };
 
+const verifyUser = (req, res, next) => {
+    const token = req.cookies.token;
+    if (!token) {
+        return res.status(401).json({ message: "Invalid User" });
+    } else {
+        jwt.verify(token, process.env.Admin_key, (err, decoded) => {
+            if (err) {
+                jwt.verify(token, process.env.Student_Key, (err, decoded) => {
+                    if (err) {
+                        return res.status(401).json({ message: "Unauthorized user" });
+                    } else {
+                        req.username = decoded.username;
+                        req.role = decoded.role;
+                        next();
+                    }
+                });
+            } else {
+                req.username = decoded.username;
+                req.role = decoded.role;
+                next();
+            }
+        });
+    }
+};
+
+router.get("/verify", verifyUser, (req, res) => {
+    return res.json({ login: true, role: req.role });
+});
+router.get("/logout", (req, res) => {
+    res.clearCookie("token");
+    return res.json({ logout: true });
+});
+
 module.exports = {
     router,
-    verifyAdmin
+    verifyAdmin,
 };
