@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import AddBook from "./pages/AddBook";
 import Books from "./pages/Books";
 import { useState } from "react";
+import Logout from "./pages/Logout";
 
 export default function App() {
   const [roles, setRoles] = useState("");
@@ -15,13 +16,15 @@ export default function App() {
       <BrowserRouter>
         <Navbar roles={roles} />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home setRoles={setRoles}/>}  />
           <Route path="login" element={<Login setRoles={setRoles} />} />
           <Route path="books" element={<Books />} />
 
           <Route path="register" element={<Register />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="add-books" element={<AddBook />} />
+
+          <Route path="/logout" element={<Logout setRoles={setRoles} />} />
         </Routes>
       </BrowserRouter>
     </div>
