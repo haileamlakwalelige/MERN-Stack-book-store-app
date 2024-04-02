@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
-const Login = () => {
+const Login = ({setRoles}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("client");
+  const [role, setRole] = useState("student");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
@@ -28,7 +28,11 @@ const Login = () => {
         setSuccess("Login successful");
         // Redirect user to dashboard or handle successful login
         if(response.data.login && response.data.role === 'admin'){
+          setRoles("admin");
           navigate("/dashboard");
+        }else if(response.data.login && response.data.role === 'student'){
+          setRoles("student");
+          navigate("/");
         }
       } else {
         setError("Invalid username or password");
@@ -101,7 +105,7 @@ const Login = () => {
             className="w-[400px] text-start font-semibold py-3 rounded outline-none focus:outline-none active:outline-none"
           >
             <option value="admin">Admin</option>
-            <option value="client">Student</option>
+            <option value="student">Student</option>
           </select>
         </div>
         <div className="flex justify-between items-center text-white px-4 py-3">
